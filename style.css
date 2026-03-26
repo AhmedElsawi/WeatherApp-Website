@@ -1,26 +1,14 @@
-body{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+
+body {
     margin: 0;
     background: #222;
     font-family: "Open Sans", serif;
     background-image: url(assets/bg.jpg);
     background-size: cover;
-    background-position:center;
-    height: 100vh;
+    background-position: center;
     font-size: 120%;
     color: white;
-}
-
-.card{
-    background: #6F4F375a;
-    padding: 2em;
-    border-radius: 30px;
-    width: 100%;
-    max-width: 420px;
-    margin: 1em;
+    min-height: 100vh;
 }
 
 .search{
@@ -29,9 +17,8 @@ body{
     justify-content: center;
 }
 
-
 button{
-    margin: 0.5 em;
+    margin: 0.5em;
     border-radius: 50%;
     border: none;
     height: 44px;
@@ -41,10 +28,8 @@ button{
     color: White;
     cursor: pointer;
     transition: 0.2s ease-in-out;
-
-
-
 }
+
 input.search-bar{
     border: none;
     outline:none;
@@ -91,3 +76,56 @@ h1.temp{
     left: 20px;
 
 }
+
+.container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+}
+
+
+
+.card,
+.forecast-card {
+    width: 100%;
+    max-width: 420px;
+    background: #6F4F375a;
+    padding: 2em;
+    border-radius: 30px;
+    margin: 0;
+}
+
+
+.forecast-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.forecast-item img {
+    width: 40px;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+        }
+
+    .card,
+    .forecast-card {
+            width: 95%;
+            max-width: 420px;
+        }
+}
+
+
+
+
+
