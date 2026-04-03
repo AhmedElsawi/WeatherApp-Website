@@ -1,8 +1,14 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 
 body {
     margin: 0;
+    font-family: "Open Sans", sans-serif;
     background: #222;
-    font-family: "Open Sans", serif;
     background-image: url(assets/bg.jpg);
     background-size: cover;
     background-position: center;
@@ -11,71 +17,6 @@ body {
     min-height: 100vh;
 }
 
-.search{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-button{
-    margin: 0.5em;
-    border-radius: 50%;
-    border: none;
-    height: 44px;
-    width: 44px;
-    outline: none;
-    background:#6F4F375a;
-    color: White;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-}
-
-input.search-bar{
-    border: none;
-    outline:none;
-    padding: 0.4em 1em;
-    border-radius: 24px;
-    background: #6F4F375a;
-    font-family: inherit;
-    font-size: 105%;
-    width: calc(100% - 100px);
-    color: white;
-}
-
-button:hover{
-    background: #6F4F3780;  
-}
-
-h1.temp{ 
-    margin: 0;
-    margin-bottom: 0.4em;
-}
-
-.description{
-    text-transform: capitalize;
-    font-size: 110%;
-}
-
-.flex {
-    display: flex;
-    align-items: center;
-}
-
-.weather.loading{
-    visibility: hidden;
-    max-height: 20px;
-    position: relative;
-}
-
-.weather.loading:after{
-    visibility: visible;
-    content: "Loading...";
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 20px;
-
-}
 
 .container {
     display: flex;
@@ -87,15 +28,127 @@ h1.temp{
 }
 
 
-
 .card,
 .forecast-card {
     width: 100%;
     max-width: 420px;
-    background: #6F4F375a;
+    margin: 0 auto; /* ✅ centers + equal spacing */
+    background: rgba(111, 79, 55, 0.35);
     padding: 2em;
     border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+    /* 🔥 premium glass look */
+    backdrop-filter: blur(12px);
+}
+
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    position: relative; /* needed for dropdown */
+}
+
+.search-bar {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    padding: 0.4em 1em;
+    border-radius: 24px;
+    background: rgba(111, 79, 55, 0.35);
+    font-size: 105%;
+    color: white;
+}
+
+
+.search-btn {
+    flex-shrink: 0;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(111, 79, 55, 0.35);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:hover {
+    background: rgba(111, 79, 55, 0.5);
+}
+
+
+.unit-select {
+    flex-shrink: 0;
+    height: 44px;
+    border-radius: 20px;
+    border: none;
+    padding: 0 10px;
+    background: rgba(111, 79, 55, 0.35);
+    color: white;
+    cursor: pointer;
+}
+
+.unit-select:hover {
+    background: rgba(111, 79, 55, 0.5);
+}
+
+
+.suggestions {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+h1.temp {
     margin: 0;
+    margin-bottom: 0.4em;
+}
+
+.description {
+    text-transform: capitalize;
+    font-size: 110%;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.weather.loading {
+    visibility: hidden;
+    max-height: 20px;
+    position: relative;
+}
+
+.weather.loading:after {
+    visibility: visible;
+    content: "Loading...";
+    position: absolute;
+    top: 0;
+    left: 20px;
 }
 
 
@@ -111,21 +164,53 @@ h1.temp{
 }
 
 
-@media (max-width: 768px) {
-    .container {
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 10px;
-        }
+.location-picker {
+    background: rgba(255,255,255,0.12);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
 
-    .card,
-    .forecast-card {
-            width: 95%;
-            max-width: 420px;
-        }
+.location-picker button {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    cursor: pointer;
+    background: rgba(111, 79, 55, 0.35);
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.location-picker button:hover {
+    background: rgba(111, 79, 55, 0.5);
 }
 
 
+@media (max-width: 600px) {
 
+    .container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 12px; 
+    }
 
+    .card,
+    .forecast-card {
+        max-width: 100%;
+        padding: 1.5em; 
+    }
 
+    .search {
+        flex-wrap: wrap; 
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .unit-select {
+        width: 100%;
+    }
+}
