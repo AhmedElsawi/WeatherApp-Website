@@ -48,4 +48,5 @@ This app fetches weather data from a third-party weather API.
   <img src="assets/Demo.png" width="600"/>
 </p>
 
+[View Live App](https://weathercloud.vercel.app/)
 
