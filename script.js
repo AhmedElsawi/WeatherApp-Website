@@ -27,17 +27,19 @@ let weather = {
   async init() {
     const city = await this.getDefaultLocation();
 
-
-    document.querySelector(".unit-select").value = this.unit;
-
     document.querySelector(".search-bar").value = city;
-    this.search();
+
+    const results = await this.geocodeLocation(city);
+
+    if (results.length > 0) {
+      this.selectLocation(results[0]); 
+    }
   },
 
 
   geocodeLocation(query) {
     return fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${this.apiKey}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${query}&lang=en&limit=5&appid=${this.apiKey}`
     )
       .then((res) => {
         if (!res.ok) throw new Error("Geocode failed");
@@ -49,7 +51,7 @@ let weather = {
 
   fetchWeatherByCoords(lat, lon) {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${this.unit}&appid=${this.apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${this.unit}&lang=en&appid=${this.apiKey}`
     )
       .then((res) => {
         if (!res.ok) throw new Error("Weather failed");
@@ -61,7 +63,7 @@ let weather = {
 
   getForecastByCoords(lat, lon) {
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${this.unit}&appid=${this.apiKey}`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${this.unit}&lang=en&appid=${this.apiKey}`
     )
       .then((res) => res.json())
       .then((data) => this.displayForecast(data));
@@ -91,6 +93,8 @@ let weather = {
 
 
   selectLocation(location) {
+    this.currentLocation = location; 
+
     const name = `${location.name}, ${location.state || ""} ${location.country}`;
 
     document.querySelector(".city").innerText = "Weather in " + name;
@@ -229,8 +233,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector(".unit-select").addEventListener("change", function () {
     weather.unit = this.value;
-    weather.search();
-  });
+
+    if (weather.currentLocation) {
+    weather.fetchWeatherByCoords(
+      weather.currentLocation.lat,
+      weather.currentLocation.lon
+    );
+
+    weather.getForecastByCoords(
+      weather.currentLocation.lat,
+      weather.currentLocation.lon
+    );
+  }
+});
 
   document.querySelector(".search-bar").addEventListener("input", () => {
     weather.handleTyping();

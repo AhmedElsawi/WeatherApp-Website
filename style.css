@@ -20,25 +20,23 @@ body {
 
 .container {
     display: flex;
-    gap: 20px;
     justify-content: center;
     align-items: flex-start;
+    gap: 40px;
     padding: 40px 20px;
-    flex-wrap: wrap;
 }
-
 
 .card,
 .forecast-card {
     width: 100%;
     max-width: 420px;
-    margin: 0 auto; /* ✅ centers + equal spacing */
+    margin: 0 auto; 
     background: rgba(111, 79, 55, 0.35);
     padding: 2em;
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 
-    /* 🔥 premium glass look */
+   
     backdrop-filter: blur(12px);
 }
 
@@ -48,7 +46,7 @@ body {
     align-items: center;
     gap: 10px;
     flex-wrap: nowrap;
-    position: relative; /* needed for dropdown */
+    position: relative; 
 }
 
 .search-bar {
