@@ -20,14 +20,24 @@ body {
 
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; 
     align-items: flex-start;
-    gap: 40px;
+    gap: 30px;
+
+    max-width: 1000px; 
+    margin: 0 auto;    
+
     padding: 40px 20px;
 }
 
 .card,
 .forecast-card {
+
+
+  
+    flex: 1;          
+    max-width: 480px; 
+
     width: 100%;
     max-width: 420px;
     margin: 0 auto; 
